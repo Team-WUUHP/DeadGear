@@ -15,18 +15,18 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        if (moveInput != null)
-            playerMovement.Move(moveInput);
+        playerMovement.Move(moveInput);
+        playerRotate.LookMouse(mouseDeltaInput);
     }
 
-    public void OnMove(InputAction.CallbackContext callbackContext)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = callbackContext.ReadValue<Vector2>();
+        moveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnJump(InputAction.CallbackContext callbackContext)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (callbackContext.performed)
+        if (context.performed)
         {
             playerMovement.Jump();
         }

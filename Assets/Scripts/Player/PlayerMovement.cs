@@ -5,8 +5,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
 
+    private Vector3 velocity;
+
     private float fallSpeed;
     private bool isGrounded;
+
+    private bool requestJump;
 
     void Start()
     {
@@ -15,32 +19,31 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(fallSpeed);
-
         if (!isGrounded)
             fallSpeed += Constant.Physical.GRAVITY_SCALE * Time.deltaTime;
         else
+        {
             fallSpeed = Mathf.Max(fallSpeed, 0);
+            if (requestJump)
+                fallSpeed = Constant.Player.JUMP_FORCE;
+        }
+        requestJump = false;
 
-        Debug.Log(fallSpeed);
+        velocity.y = fallSpeed;
 
-        characterController.Move(Vector3.up * fallSpeed);
+        characterController.Move(velocity * Time.deltaTime);
 
         isGrounded = characterController.isGrounded;
     }
 
     public void Move(Vector2 MoveInput)
     {
-        Vector3 velocity = new Vector3(MoveInput.x, 0, MoveInput.y);
-
-        characterController.Move(velocity * Constant.Player.MOVE_SPEED * Time.deltaTime);
+        MoveInput = Vector2.Normalize(MoveInput) * Constant.Player.MOVE_SPEED;
+        velocity = new Vector3(MoveInput.x, 0, MoveInput.y);
     }
 
     public void Jump()
     {
-        if (isGrounded)
-        {
-            fallSpeed = Constant.Player.JUMP_FORCE;
-        }
+        requestJump = true;
     }
 }
