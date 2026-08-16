@@ -6,11 +6,16 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
 
+    [SerializeField] private PlayerRotate playerRotate;
+
     private Vector2 moveInput;
+
+    private Vector2 mouseDeltaInput;
 
     void Start()
     {
         playerMovement ??= GetComponent<PlayerMovement>();
+        playerRotate ??= GetComponent<PlayerRotate>();
     }
 
     void Update()
@@ -30,5 +35,10 @@ public class InputManager : MonoBehaviour
         {
             playerMovement.Jump();
         }
+    }
+
+    public void OnLookMouse(InputAction.CallbackContext context)
+    {
+        mouseDeltaInput = context.ReadValue<Vector2>();
     }
 }
