@@ -36,10 +36,10 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = characterController.isGrounded;
     }
 
-    public void Move(Vector2 MoveInput)
+    public void Move(Vector2 moveInput)
     {
-        MoveInput = Vector2.Normalize(MoveInput) * Constant.Player.MOVE_SPEED;
-        velocity = new Vector3(MoveInput.x, 0, MoveInput.y);
+        moveInput = Vector2.Normalize(moveInput) * Constant.Player.MOVE_SPEED;
+        velocity = new Vector3(moveInput.x, 0, moveInput.y);
     }
 
     public void Jump()
