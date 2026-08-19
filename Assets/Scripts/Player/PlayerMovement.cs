@@ -38,7 +38,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Vector2 moveInput)
     {
-        moveInput = Vector2.Normalize(moveInput) * Constant.Player.MOVE_SPEED;
+        moveInput.Normalize();
+        moveInput = moveInput * Constant.Player.MOVE_SPEED;
         velocity = new Vector3(moveInput.x, 0, moveInput.y);
     }
 
