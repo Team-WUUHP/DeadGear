@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "DeadGear.slnx"
+    "dotnet.defaultSolution": "DeadGear.slnx",
+    "dotnet.enableWorkspaceBasedDevelopment": false
 }
